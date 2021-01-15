@@ -12,13 +12,18 @@ import androidx.fragment.app.Fragment
 @desription:
  */
 
-open class BaseFragment : Fragment() {
+open abstract class BaseFragment<P : BasePresenter<V>, V : BaseView> : Fragment(), BaseView {
+
+    protected var presenter: P? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        presenter?.attachView(this as V)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
+
 }

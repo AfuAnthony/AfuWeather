@@ -15,11 +15,10 @@ open abstract class BaseActivity<P : BasePresenter<V>, V : BaseView> : AppCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter?.attachView(getView())
+        presenter?.attachView(this as V)
         lifecycle.addObserver(createPresenter())
     }
 
-    abstract fun getView(): V
 
     abstract fun createPresenter(): P
 

@@ -15,9 +15,6 @@ class WeatherActivity :
         return presenter?.requestWeather()
     }
 
-    override fun getView(): WeatherContract.WeatherView {
-        return this
-    }
 
 
 }
