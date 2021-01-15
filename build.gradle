@@ -6,6 +6,7 @@ buildscript {
         kotlin_version = "1.4.20"
         kotlin_coroutines_version="1.4.2"
         retrofit_version="2.9.0"
+        converter_gson_version="2.6.0"
     }
 
     repositories {
@@ -23,10 +24,18 @@ buildscript {
 
 allprojects {
     repositories {
+
+        //这三句新增的放在下面两句前边好像增加速度才能生效
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://maven.aliyun.com/repository/google' }//
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }//
+
+
         google()
         jcenter()
+       
     }
-}
+    }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
