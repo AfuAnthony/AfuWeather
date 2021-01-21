@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.viewbinding.ViewBinding
+import com.anthonyh.afuweather.util.ViewBindingUtil
 
 /**
 @author Anthony.H
@@ -12,9 +15,11 @@ import androidx.fragment.app.Fragment
 @desription:
  */
 
-open abstract class BaseFragment<P : BasePresenter<V>, V : BaseView> : Fragment(), BaseView {
+open abstract class BaseFragment<P : BasePresenter<V>, V : BaseView, VB : ViewBinding> : Fragment(),
+    BaseView {
 
-    protected var presenter: P? = null
+    protected lateinit var presenter: P
+    protected var viewBinding: VB? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,8 +27,26 @@ open abstract class BaseFragment<P : BasePresenter<V>, V : BaseView> : Fragment(
         savedInstanceState: Bundle?
     ): View? {
         presenter?.attachView(this as V)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        viewBinding = ViewBindingUtil.create(this::class.java, layoutInflater, container, false)
+        val view = viewBinding?.root
+        presenter = createPresenter()
+        lifecycle.addObserver(presenter)
+        presenter?.attachView(this as V)
+        return view
     }
 
+    abstract fun createPresenter(): P
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
+    }
+
+    override fun onLoading() {
+    }
+
+    override fun onDisLoading() {
+    }
 
 }

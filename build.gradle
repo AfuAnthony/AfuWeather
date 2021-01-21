@@ -7,6 +7,7 @@ buildscript {
         kotlin_coroutines_version="1.4.2"
         retrofit_version="2.9.0"
         converter_gson_version="2.6.0"
+        lifecycle_version = "2.2.0"
     }
 
     repositories {
