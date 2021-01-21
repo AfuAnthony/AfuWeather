@@ -8,6 +8,7 @@ buildscript {
         retrofit_version="2.9.0"
         converter_gson_version="2.6.0"
         lifecycle_version = "2.2.0"
+        room_version = "2.2.6"
     }
 
     repositories {
@@ -15,7 +16,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.0"
+        classpath "com.android.tools.build:gradle:4.1.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong

@@ -32,8 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:overScrollMode="never"
-                    android:scrollbars="none"
-                    android:visibility="@{viewModel.weatherInitialized ? View.VISIBLE : View.INVISIBLE}">
+                    android:scrollbars="none">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -41,20 +40,15 @@
                         android:fitsSystemWindows="true"
                         android:orientation="vertical">
 
-                        <include
-                            layout="@layout/title" />
+                        <include layout="@layout/title" />
 
-                        <include
-                            layout="@layout/now" />
+                        <include layout="@layout/now" />
 
-                        <include
-                            layout="@layout/forecast" />
+                        <include layout="@layout/forecast" />
 
-                        <include
-                            layout="@layout/aqi" />
+                        <include layout="@layout/aqi" />
 
-                        <include
-                            layout="@layout/suggestion" />
+                        <include layout="@layout/suggestion" />
 
                     </LinearLayout>
 

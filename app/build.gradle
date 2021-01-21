@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -56,5 +56,15 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
     //lifecycle
     implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycle_version"
+    /*
+     room
+     */
+    implementation "androidx.room:room-runtime:$rootProject.room_version"
+    kapt "androidx.room:room-compiler:$rootProject.room_version"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$rootProject.room_version"
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$rootProject.room_version"
+
 
 }
