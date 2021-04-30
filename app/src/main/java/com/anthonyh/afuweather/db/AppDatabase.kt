@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.anthonyh.afuweather.place.entity.City
+import com.anthonyh.afuweather.mvp.place.entity.City
 
 /**
 @author Anthony.H

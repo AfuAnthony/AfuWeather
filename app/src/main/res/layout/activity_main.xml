@@ -1,69 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".weather.WeatherActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <data>
+
+        <variable
+            name="weather"
+            type="com.anthonyh.afuweather.mvp.weather.entity.Weather"></variable>
+
+        <variable
+            name="bindUrl"
+            type="String"></variable>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        tools:context=".mvp.weather.WeatherActivity">
 
-        <ImageView
-            android:id="@+id/bingPicImg"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:background="@color/colorPrimary">
 
-        <androidx.drawerlayout.widget.DrawerLayout
-            android:id="@+id/drawerLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/bingPicImg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:imageLoadExtension="@{bindUrl}" />
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefresh"
+            <androidx.drawerlayout.widget.DrawerLayout
+                android:id="@+id/drawerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ScrollView
-                    android:id="@+id/weatherLayout"
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/swipeRefresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ScrollView
+                        android:id="@+id/weatherLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fitsSystemWindows="true"
+                            android:orientation="vertical">
+
+                            <include
+                                android:id="@+id/titleLayout"
+
+                                layout="@layout/title"
+                                app:weather="@{weather}" />
+
+                            <include
+                                layout="@layout/now"
+                                app:weather="@{weather}" />
+
+                            <include
+                                layout="@layout/forecast"
+                                app:weather="@{weather}" />
+
+                            <include
+                                layout="@layout/aqi"
+                                app:weather="@{weather}" />
+
+                            <include
+                                layout="@layout/suggestion"
+                                app:weather="@{weather}" />
+
+                        </LinearLayout>
+
+                    </ScrollView>
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <fragment
+                    android:id="@+id/chooseAreaFragment"
+                    android:name="com.anthonyh.afuweather.mvp.place.PlaceSelectFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:overScrollMode="never"
-                    android:scrollbars="none">
+                    android:layout_gravity="start" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fitsSystemWindows="true"
-                        android:orientation="vertical">
+            </androidx.drawerlayout.widget.DrawerLayout>
 
-                        <include layout="@layout/title" />
+        </FrameLayout>
 
-                        <include layout="@layout/now" />
-
-                        <include layout="@layout/forecast" />
-
-                        <include layout="@layout/aqi" />
-
-                        <include layout="@layout/suggestion" />
-
-                    </LinearLayout>
-
-                </ScrollView>
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-            <fragment
-                android:id="@+id/chooseAreaFragment"
-                android:name="com.anthonyh.afuweather.place.PlaceSelectFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="start" />
-
-        </androidx.drawerlayout.widget.DrawerLayout>
-
-    </FrameLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

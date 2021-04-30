@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AfuWeather</string>
+    <string name="choose_point">选择地点</string>
+    <string name="weather_detail">天气详情</string>
 </resources>

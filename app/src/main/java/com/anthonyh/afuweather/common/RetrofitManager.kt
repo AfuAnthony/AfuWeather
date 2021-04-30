@@ -11,8 +11,8 @@ object RetrofitManager {
 
 
     private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BASEURL)
 
+        .baseUrl(BASEURL)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -20,5 +20,6 @@ object RetrofitManager {
     fun <T> createService(clazz: Class<T>): T {
         return retrofit.create(clazz)
     }
+
 
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="choosePlaceFragment"
+            type="com.anthonyh.afuweather.mvvm.weather.fragment.ChoosePlaceFragment"></variable>
+    </data>
+
+    <LinearLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
+
+            <AutoCompleteTextView
+                android:id="@+id/key_word"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/text_search"
+                android:completionThreshold="1"
+                android:dropDownVerticalOffset="1.0dip"
+                android:focusable="true"
+                android:hint="请输入关键字"
+                android:imeOptions="actionDone"
+                android:inputType="text|textAutoComplete"
+                android:maxLength="20"
+                android:paddingLeft="20.0dip"
+                android:paddingRight="37.0dip"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textColorHint="#C0C0C0"
+                android:textSize="16.0sp"
+                app:bindItemClick="@{choosePlaceFragment.onItemClickListener}"
+                app:bindTextWatcher="@{choosePlaceFragment.textChangeListener}" />
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:onClick="onActionSearchByKey"
+                android:text="Search"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
+
+
+        <ScrollView
+            android:id="@+id/point_recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#009999"
+            android:cacheColorHint="#00000000" />
+
+    </LinearLayout>
+</layout>

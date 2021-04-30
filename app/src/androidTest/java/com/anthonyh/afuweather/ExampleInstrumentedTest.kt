@@ -1,5 +1,7 @@
 package com.anthonyh.afuweather
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.*
@@ -160,4 +162,12 @@ class ExampleInstrumentedTest {
         }
         job.cancel()
     }
+
+
 }
+
+@Test
+fun testViewModel() {
+}
+
+
