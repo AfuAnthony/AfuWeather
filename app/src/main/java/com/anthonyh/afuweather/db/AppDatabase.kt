@@ -15,6 +15,9 @@ import com.anthonyh.afuweather.mvp.place.entity.City
 abstract class AppDatabase : RoomDatabase() {
 
 
+    abstract fun weatherDao(): WeatherDao
+
+
     companion object {
         const val DATABASE_NAME = "afuweather"
 

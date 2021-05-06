@@ -8,18 +8,6 @@
 
     <fragment
         android:id="@+id/choosePlaceFragment"
-        android:name="com.anthonyh.afuweather.mvvm.weather.fragment.ChoosePlaceFragment"
-        android:label="ChoosePlaceFragment">
-        <action
-            android:id="@+id/action_choosePlaceFragment_to_weatherDetailFragment2"
-            app:destination="@id/weatherDetailFragment2" />
-    </fragment>
-    <fragment
-        android:id="@+id/weatherDetailFragment2"
-        android:name="com.anthonyh.afuweather.mvvm.weather.fragment.WeatherDetailFragment"
-        android:label="WeatherDetailFragment">
-        <action
-            android:id="@+id/action_weatherDetailFragment2_to_choosePlaceFragment"
-            app:destination="@id/choosePlaceFragment" />
-    </fragment>
+        android:name="com.anthonyh.afuweather.mvvm.weather.fragment.WeatherFragment"
+        android:label="ChoosePlaceFragment"></fragment>
 </navigation>

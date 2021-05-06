@@ -7,6 +7,6 @@ import java.lang.Exception
 @date: 2021/4/30
 @desription:
  */
-class WeatherException(var code: Int?, msg: String) : Exception(msg) {
+class WeatherException(var code: Int?, msg: String?) : Exception(msg) {
 
 }

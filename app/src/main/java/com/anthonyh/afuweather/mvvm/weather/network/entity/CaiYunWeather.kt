@@ -1,16 +1,28 @@
 package com.anthonyh.afuweather.mvvm.weather.network.entity
 
+import androidx.room.Ignore
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 /**
 @author Anthony.H
 @date: 2021/4/30
 @desription:
  */
-data class CaiYunWeather(val status: String?, val result: Result?) {
+data class CaiYunWeather(
+    val status: String?,
+    @SerializedName("server_time") val serverTime: String?,
+    val result: Result?,
+
+    val location: DoubleArray?,
+    @Expose(serialize = false, deserialize = false) var locationName: String?
+) {
 
 
 }
 
 data class Result(
+
 
     val realTime: RealTime?,
     val minutely: Minutely?,
