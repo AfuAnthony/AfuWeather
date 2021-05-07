@@ -11,7 +11,7 @@ import com.anthonyh.afuweather.mvp.place.entity.City
 @date: 2021/1/21 0021
 @desription:
  */
-@Database(entities = arrayOf(City::class), version = 1)
+@Database(entities = [WeatherData::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
 

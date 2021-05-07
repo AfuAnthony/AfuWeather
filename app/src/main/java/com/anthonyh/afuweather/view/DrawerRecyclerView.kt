@@ -115,7 +115,7 @@ class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout
                         if (parentHeight <= maxParentHeight) {
                             val parentView = parent as DrawerRecyclerView
                             val lp = parentView.layoutParams
-                            lp.height -= (delY / 30).toInt()
+                            lp.height -= (delY).toInt()
                             parentView.layoutParams = lp
                         }
                     } else if (delY > 0) {//下边界

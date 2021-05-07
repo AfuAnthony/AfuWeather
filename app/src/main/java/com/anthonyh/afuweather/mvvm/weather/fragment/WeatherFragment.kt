@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.amap.api.location.AMapLocation
@@ -32,8 +33,11 @@ import com.anthonyh.afuweather.application.WeatherApplication
 import com.anthonyh.afuweather.databinding.FragmentChoosePlaceBindingImpl
 import com.anthonyh.afuweather.mvvm.weather.model.ChoosePlaceViewModel
 import com.anthonyh.afuweather.mvvm.weather.model.QueryWeatherViewModel
+import com.anthonyh.afuweather.mvvm.weather.repository.Status
 import com.anthonyh.afuweather.util.InjectorUtil
 import com.anthonyh.afuweather.util.dip2px
+import com.anthonyh.afuweather.util.format
+import com.anthonyh.afuweather.util.SixFormatString
 import kotlinx.android.synthetic.main.fragment_choose_place.*
 import java.util.*
 
@@ -67,8 +71,9 @@ class WeatherFragment : Fragment(), LocationSource, AMapLocationListener {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         map_view.onCreate(savedInstanceState)
         init()
         observeData()
@@ -133,9 +138,11 @@ class WeatherFragment : Fragment(), LocationSource, AMapLocationListener {
             it?.run {
                 key_word.setText("")
                 //获取到地址
-                Log.e(
-                    TAG,
-                    "observeData: ${it.regeocodeAddress.district},${it.regeocodeQuery.point.latitude}"
+                Log.e(TAG, "observeData: ${it.regeocodeAddress.district}}")
+                queryWeatherViewModel.queryWeather(
+                    it.regeocodeQuery.point.longitude,
+                    it.regeocodeQuery.point.latitude,
+                    it.regeocodeAddress.district
                 )
             }
         }
@@ -144,6 +151,24 @@ class WeatherFragment : Fragment(), LocationSource, AMapLocationListener {
         choosePlaceViewModel.errorData.observe(viewLifecycleOwner) {
             it?.run {
                 Toast.makeText(WeatherApplication.context, it.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+        //////
+        queryWeatherViewModel.weatherLiveData.observe(viewLifecycleOwner) {
+            Log.e(TAG, "observeData: ${it.status}")
+            when (it.status) {
+                Status.LOADING -> {
+                    Log.e(TAG, "observeData: 正在查询天气")
+                }
+                Status.ERROR -> {
+                    Log.e(TAG, "observeData: ${it.message}")
+                }
+                Status.SUCCESS -> {
+                    Log.e(
+                        TAG,
+                        "${it.data?.weatherDataJson}}"
+                    )
+                }
             }
         }
     }

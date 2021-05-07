@@ -3,6 +3,7 @@ package com.anthonyh.afuweather.db
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.anthonyh.afuweather.mvvm.weather.network.entity.CaiYunWeather
+import com.anthonyh.afuweather.util.GsonUtil
 
 /**
 @author Anthony.H
@@ -13,8 +14,9 @@ import com.anthonyh.afuweather.mvvm.weather.network.entity.CaiYunWeather
 data class WeatherData(
 
     @PrimaryKey//经纬度，用来标识数据的唯一性
-    private val locationTude: String,
-
-    private val caiYunWeather: CaiYunWeather//天气数据内容
-
-)
+    val locationTude: String,
+    val weatherDataJson: String
+//    val caiYunWeather: CaiYunWeather,//天气数据内容
+) {
+    fun convertJson() = GsonUtil.fromJson(weatherDataJson, CaiYunWeather::class.java)
+}

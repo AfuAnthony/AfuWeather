@@ -13,7 +13,10 @@ import com.anthonyh.afuweather.mvp.weather.entity.HeWeather
 
 class WeatherModelImpl : WeatherContract.IWeatherModel {
 
-    private var weatherService = RetrofitManager.createService(WeatherService::class.java)
+    private var weatherService = RetrofitManager.createService(
+        RetrofitManager.getRetrofit(RetrofitManager.GUOLIN)!!,
+        WeatherService::class.java
+    )
 
     override suspend fun requestWeather(cityId: String): HeWeather? {
         return weatherService.getWeather(cityId)

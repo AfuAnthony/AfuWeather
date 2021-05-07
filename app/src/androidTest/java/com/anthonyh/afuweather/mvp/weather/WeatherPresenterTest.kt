@@ -4,6 +4,7 @@ import android.util.Log
 import junit.framework.TestCase
 import kotlinx.coroutines.*
 import org.junit.Test
+import java.text.DecimalFormat
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -51,5 +52,12 @@ class WeatherPresenterTest : TestCase() {
         it.resume("success get data${Thread.currentThread().name}")
     }
 
+
+    @Test
+    fun testFormat() {
+        val value: Double = 1.23456789321
+
+        Log.e("testFormat", "testFormat: ${DecimalFormat("#.000000").format(value).toDouble()}")
+    }
 
 }

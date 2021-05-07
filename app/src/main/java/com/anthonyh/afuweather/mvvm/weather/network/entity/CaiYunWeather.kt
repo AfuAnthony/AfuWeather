@@ -1,6 +1,5 @@
 package com.anthonyh.afuweather.mvvm.weather.network.entity
 
-import androidx.room.Ignore
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -12,8 +11,8 @@ import com.google.gson.annotations.SerializedName
 data class CaiYunWeather(
     val status: String?,
     @SerializedName("server_time") val serverTime: String?,
-    val result: Result?,
 
+    val result: Result?,
     val location: DoubleArray?,
     @Expose(serialize = false, deserialize = false) var locationName: String?
 ) {
@@ -23,16 +22,14 @@ data class CaiYunWeather(
 
 data class Result(
 
-
     val realTime: RealTime?,
-    val minutely: Minutely?,
-    val hourly: Hourly?,
     val daily: Daily?,
     val forecast_keypoint: String?
 ) {
 
 
 }
+
 
 //////////////
 data class RealTime(
@@ -108,8 +105,13 @@ data class Hourly(
 data class Precipitation(val datetime: String?, val value: Float?)
 
 ////////////
-data class Daily(val status: String?, val skycon: Skycon?) {
+data class Daily(val status: String?, val skycon: Array<Skycon>?, val temperature: Temperature?) {
 
 }
 
-data class Skycon(val date: String?, val value: String?) {}
+data class Skycon(val date: String?, val value: String?)
+
+
+
+data class Temperature(val date: String?, val max: Float?, val min: Float?)
+

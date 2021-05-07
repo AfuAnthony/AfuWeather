@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.core.content.getSystemService
+import java.text.DecimalFormat
 
 /**
 @author Anthony.H
@@ -112,3 +113,9 @@ val Context.statusBarHeight: Int
 
 
 val Context.windowManager get() = getSystemService<WindowManager>()
+
+
+const val SixFormatString = "#.000000"
+
+
+fun Double.format(formatString: String) = DecimalFormat(formatString).format(this).toDouble()
