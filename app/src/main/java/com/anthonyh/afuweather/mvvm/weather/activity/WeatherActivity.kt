@@ -2,6 +2,7 @@ package com.anthonyh.afuweather.mvvm.weather.activity
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -56,7 +57,7 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private fun init() {
-
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         val activityWeatherBindingImpl = DataBindingUtil.setContentView<ActivityWeatherBindingImpl>(
             this,
             R.layout.activity_weather

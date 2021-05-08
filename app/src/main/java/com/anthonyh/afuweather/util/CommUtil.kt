@@ -136,20 +136,9 @@ fun timeStamp2Date(seconds: String?, format: String?): String? {
     return sdf.format(Date(Long.valueOf(seconds + "000")))
 }
 
-fun timeForMatShort(oldDate: String): String {
-    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-    val secFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.CHINA)
-
-    val lastFormat = SimpleDateFormat("yyyy-MM-dd")
-
-    return lastFormat.format(secFormat.parse(format.parse(oldDate).toString()))
-}
-
 fun dealDateFormat(oldDateStr: String?): String? {
-    Log.e("dealDateFormat", "dealDateFormat: $oldDateStr")
     val df1 = SimpleDateFormat("yyyy-MM-dd'T'hh:mmZ")
     val date = df1.parse(oldDateStr)
-    Log.e("dealDateFormat", "dealDateFormat->: ${date.toString()}")
     val df2 = SimpleDateFormat("MM月dd日")
 //    df2.timeZone = TimeZone.getTimeZone("GMT-16:00")
     return df2.format(date)

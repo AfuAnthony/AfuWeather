@@ -104,16 +104,16 @@
             android:gravity="center"
             android:text="@{locationName}"
             android:textColor="@color/white_text_color"
-            android:textSize="26sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toTopOf="@id/update_time_tv"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
 
         <TextView
+            
             android:id="@+id/update_time_tv"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:textColor="@color/grary_text_color"
             android:textSize="10sp"

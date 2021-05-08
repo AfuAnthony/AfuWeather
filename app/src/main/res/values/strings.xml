@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AfuWeather</string>
+    <string name="app_name">好天气</string>
     <string name="choose_point">选择地点</string>
     <string name="weather_detail">天气详情</string>
     <string name="caiyun_appkey">OzFIkSMOXc6RP9pw</string>

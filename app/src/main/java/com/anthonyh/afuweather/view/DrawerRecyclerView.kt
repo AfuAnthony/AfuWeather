@@ -1,8 +1,6 @@
 package com.anthonyh.afuweather.view
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.view.*
 import android.widget.FrameLayout
@@ -58,7 +56,8 @@ class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
                 addView(recyclerView, layoutParamsRecyclerView)
-                recyclerView?.setBackgroundColor(resources.getColor(R.color.colorPrimaryTran))
+//                recyclerView?.setBackgroundColor(resources.getColor(R.color.colorPrimaryTran))
+                recyclerView?.setBackground(ContextCompat.getDrawable(context, R.drawable.bg))
                 recyclerView?.layoutManager = LinearLayoutManager(context)
                 recyclerView?.adapter = weatherAdapter
                 recyclerView?.addItemDecoration(
@@ -135,13 +134,15 @@ class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout
                             val parentView = parent as DrawerRecyclerView
                             val lp = parentView.layoutParams
                             lp.height -= (delY).toInt()
+                            correctPos(lp)
                             parentView.layoutParams = lp
                         }
                     } else if (delY > 0) {//下边界
                         if (parentHeight >= minParentHeight) {
                             val parentView = parent as DrawerRecyclerView
                             val lp = parentView.layoutParams
-                            lp.height -= (delY / 30).toInt()
+                            lp.height -= (delY).toInt()
+                            correctPos(lp)
                             parentView.layoutParams = lp
                         }
                     }
@@ -152,6 +153,7 @@ class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout
                     } else {
                         handleIv?.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
                     }
+
                 }
             }
             return true
@@ -162,6 +164,18 @@ class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout
         }
 
         fun isParentMoved() = parentHeight > minParentHeight
+
+
+        /**
+         * 防止滑动太快过了边界，纠正位置
+         */
+        fun correctPos(layoutParams: ViewGroup.LayoutParams) {
+            if (layoutParams.height > maxParentHeight) {
+                layoutParams.height = maxParentHeight
+            } else if (layoutParams.height < minParentHeight) {
+                layoutParams.height = minParentHeight
+            }
+        }
 
     }
 

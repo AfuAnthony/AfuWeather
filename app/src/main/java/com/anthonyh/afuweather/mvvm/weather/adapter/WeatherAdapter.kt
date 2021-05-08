@@ -9,7 +9,6 @@ import com.anthonyh.afuweather.BR
 import com.anthonyh.afuweather.R
 import com.anthonyh.afuweather.mvvm.weather.network.entity.CaiYunWeather
 import com.anthonyh.afuweather.util.dealDateFormat
-import com.anthonyh.afuweather.util.timeForMatShort
 
 /**
 @author Anthony.H
