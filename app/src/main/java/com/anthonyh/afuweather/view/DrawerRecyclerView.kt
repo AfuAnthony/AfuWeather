@@ -42,7 +42,11 @@ class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout
         var listener = ViewTreeObserver.OnGlobalLayoutListener {
             if (childCount == 0) {
                 val parent = parent as FrameLayout
-                handleView = HandleView(context, height, parent.height)
+                handleView = HandleView(
+                    context,
+                    height,
+                    parent.height - resources.getDimension(R.dimen.search_edit_height).toInt()
+                )
                 val layoutParamsHandleView = LayoutParams(
                     width / 5,
                     resources.getDimension(R.dimen.handle_height).toInt()

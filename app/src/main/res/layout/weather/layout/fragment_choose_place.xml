@@ -7,12 +7,12 @@
 
         <variable
             name="choosePlaceFragment"
-            type="com.anthonyh.afuweather.mvvm.weather.fragment.WeatherFragment"></variable>
+            type="com.anthonyh.afuweather.mvvm.weather.fragment.WeatherFragment" />
 
         <variable
             name="weatherViewModel"
 
-            type="com.anthonyh.afuweather.mvvm.weather.model.QueryWeatherViewModel"></variable>
+            type="com.anthonyh.afuweather.mvvm.weather.model.QueryWeatherViewModel" />
     </data>
 
     <FrameLayout
@@ -37,7 +37,7 @@
                 <AutoCompleteTextView
                     android:id="@+id/key_word"
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_height="@dimen/search_edit_height"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
