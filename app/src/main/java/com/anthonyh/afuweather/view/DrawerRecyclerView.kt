@@ -19,7 +19,7 @@ import com.anthonyh.afuweather.mvvm.weather.network.entity.CaiYunWeather
 /**
 @author Anthony.H
 @date: 2021/5/6
-@desription:
+@desription:可以拉伸滑动的一个竖向的抽屉
  */
 class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
@@ -56,17 +56,18 @@ class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
                 addView(recyclerView, layoutParamsRecyclerView)
-//                recyclerView?.setBackgroundColor(resources.getColor(R.color.colorPrimaryTran))
-                recyclerView?.setBackground(ContextCompat.getDrawable(context, R.drawable.bg))
-                recyclerView?.layoutManager = LinearLayoutManager(context)
-                recyclerView?.adapter = weatherAdapter
-                recyclerView?.addItemDecoration(
-                    DividerItemDecoration(
-                        context,
-                        LinearLayoutManager.VERTICAL
-                    ).apply {
-                        setDrawable(ContextCompat.getDrawable(context, R.drawable.divider)!!)
-                    })
+                recyclerView?.let {
+                    it.background = ContextCompat.getDrawable(context, R.drawable.bg)
+                    it.layoutManager = LinearLayoutManager(context)
+                    it.adapter = weatherAdapter
+                    it.addItemDecoration(
+                        DividerItemDecoration(
+                            context,
+                            LinearLayoutManager.VERTICAL
+                        ).apply {
+                            setDrawable(ContextCompat.getDrawable(context, R.drawable.divider)!!)
+                        })
+                }
             }
             viewTreeObserver.removeOnGlobalLayoutListener { this }
         }
