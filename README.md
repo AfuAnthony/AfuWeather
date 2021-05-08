@@ -3,4 +3,5 @@
 旨在运用Android jetpack相关组件和架构模式。Android架构模式(mvvm)
 
 ![image](https://github.com/AfuAnthony/AfuWeather/blob/master/1.jpg)
-
+![image](https://github.com/AfuAnthony/AfuWeather/blob/master/2.jpg)
+![image](https://github.com/AfuAnthony/AfuWeather/blob/master/3.jpg)
