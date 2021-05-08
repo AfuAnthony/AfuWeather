@@ -5,6 +5,8 @@ import junit.framework.TestCase
 import kotlinx.coroutines.*
 import org.junit.Test
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -60,4 +62,17 @@ class WeatherPresenterTest : TestCase() {
         Log.e("testFormat", "testFormat: ${DecimalFormat("#.000000").format(value).toDouble()}")
     }
 
+    @Test
+    fun testDateFormat() {
+        val df = SimpleDateFormat("yyyy-MM-dd'T'hh:mmZ")
+        val date1 = df.parse("2021-05-08T00:00+08:00")//2013-03-13T20:59:31+0000
+        Log.e("testDateFormat", "testDateFormat: ${date1}")
+        val df2 = SimpleDateFormat("MM月dd日")
+        df2.timeZone = TimeZone.getTimeZone("GMT")
+
+        Log.e("testDateFormat", "testDateFormat: ${df2.format(date1)}")
+
+    }
+
 }
+

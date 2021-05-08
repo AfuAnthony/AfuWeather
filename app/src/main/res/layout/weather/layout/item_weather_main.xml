@@ -14,7 +14,14 @@
 
             type="String" />
 
+        <variable
+            name="serverTime"
+            type="String" />
 
+
+        <variable
+            name="forecastKeypoint"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,33 +34,64 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@{realTimeWeather.temperature+ '℃'}"
+            android:text="@{realTimeWeather.temperature}"
             android:textColor="@color/white_text_color"
             android:textSize="60sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <TextView
-            android:id="@+id/skycon_tv"
+            android:id="@+id/tm_icon_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/grary_text_color"
-            android:textSize="26sp"
-            app:bindWeatherSkyCon="@{realTimeWeather.skycon}"
-            app:layout_constraintLeft_toLeftOf="@id/now_tem_tv"
-            app:layout_constraintTop_toBottomOf="@id/now_tem_tv" />
+            android:layout_marginTop="10dp"
+            android:text="℃"
+            android:textColor="@color/white_text_color"
+            android:textSize="22sp"
+            app:layout_constraintLeft_toRightOf="@id/now_tem_tv"
+            app:layout_constraintTop_toTopOf="@id/now_tem_tv" />
 
-        <TextView
-            android:id="@+id/air_discrible_tv"
+
+        <LinearLayout
+
+            android:id="@+id/skycon_lin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{realTimeWeather.airQuality.description.toString()}"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/now_tem_tv">
+
+            <TextView
+                android:id="@+id/skycon_tv"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:textColor="@color/grary_text_color"
+                android:textSize="16sp"
+                app:bindWeatherSkyCon="@{realTimeWeather.skycon}" />
+
+            <TextView
+                android:id="@+id/air_discrible_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{` 空气` + realTimeWeather.airQuality.description.chn}"
+                android:textColor="@color/grary_text_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/fast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{forecastKeypoint}"
             android:textColor="@color/grary_text_color"
-            android:textSize="26sp"
-            app:layout_constraintRight_toRightOf="@id/now_tem_tv"
-            app:layout_constraintTop_toBottomOf="@id/now_tem_tv" />
+            android:textSize="10sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/skycon_lin" />
 
 
         <TextView
@@ -66,7 +104,7 @@
             android:gravity="center"
             android:text="@{locationName}"
             android:textColor="@color/white_text_color"
-            android:textSize="30sp"
+            android:textSize="26sp"
             app:layout_constraintBottom_toTopOf="@id/update_time_tv"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -75,13 +113,13 @@
         <TextView
             android:id="@+id/update_time_tv"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:text="上次更新时间：10点 "
             android:textColor="@color/grary_text_color"
-            android:textSize="16sp"
+            android:textSize="10sp"
+            app:bindTimeStamp="@{serverTime}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-
             app:layout_constraintRight_toRightOf="parent" />
 
 

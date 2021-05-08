@@ -5,6 +5,7 @@ import android.widget.*
 import androidx.databinding.BindingAdapter
 import com.anthonyh.afuweather.R
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.title.view.*
 
 /**
 @author Anthony.H
@@ -59,10 +60,20 @@ fun AutoCompleteTextView.bindItemClick(onItemClickListener: AdapterView.OnItemCl
 大风	WIND
  */
 @BindingAdapter("bindWeatherSkyCon")
-fun TextView.bindWeatherSkyCon(skyCon: String) {
+fun TextView.bindWeatherSkyCon(skyCon: String?) {
     text = "晴天"
 }
+
 @BindingAdapter("bindWeatherIcon")
-fun ImageView.bindWeatherIcon(skyCon: String) {
+fun ImageView.bindWeatherIcon(skyCon: String?) {
     setImageResource(R.drawable.ic_baseline_wb_sunny_24)
+}
+
+@BindingAdapter("bindTimeStamp")
+fun TextView.bindTimeStamp(timeSec: String?) {
+
+    timeSec?.let {
+        text = "上次更新时间：${timeStamp2Date(timeSec, null)}"
+    }
+
 }

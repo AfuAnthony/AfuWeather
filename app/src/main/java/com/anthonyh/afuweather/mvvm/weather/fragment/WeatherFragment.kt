@@ -49,7 +49,7 @@ import java.util.*
 class WeatherFragment : Fragment(), LocationSource, AMapLocationListener {
 
     companion object {
-        private const val TAG = "ChoosePlaceFragment"
+        private const val TAG = "WeatherFragment"
     }
 
     private val choosePlaceViewModel by viewModels<ChoosePlaceViewModel>()
@@ -80,6 +80,8 @@ class WeatherFragment : Fragment(), LocationSource, AMapLocationListener {
     }
 
     private fun init() {
+
+
         aMap = map_view.map
         aMap?.run {
             uiSettings.isZoomControlsEnabled = false
@@ -129,9 +131,7 @@ class WeatherFragment : Fragment(), LocationSource, AMapLocationListener {
             )
             key_word.setAdapter(aAdapter)
             aAdapter.notifyDataSetChanged()
-            if (!key_word.isShown) {
-                key_word.showDropDown()
-            }
+            key_word.showDropDown()
         }
 
         choosePlaceViewModel.realPlaceData.observe(viewLifecycleOwner) {
@@ -142,7 +142,7 @@ class WeatherFragment : Fragment(), LocationSource, AMapLocationListener {
                 queryWeatherViewModel.queryWeather(
                     it.regeocodeQuery.point.longitude,
                     it.regeocodeQuery.point.latitude,
-                    it.regeocodeAddress.district
+                    "${it.regeocodeAddress.city}${it.regeocodeAddress.district}"
                 )
             }
         }
@@ -168,6 +168,8 @@ class WeatherFragment : Fragment(), LocationSource, AMapLocationListener {
                         TAG,
                         "${it.data?.weatherDataJson}}"
                     )
+                    it.data?.let { weatherData -> point_recycleView.refresh(weatherData.convertJson()) }
+
                 }
             }
         }
@@ -272,6 +274,7 @@ class WeatherFragment : Fragment(), LocationSource, AMapLocationListener {
 
     val textChangeListener = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

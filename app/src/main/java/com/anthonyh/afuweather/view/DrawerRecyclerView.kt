@@ -10,8 +10,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anthonyh.afuweather.R
+import com.anthonyh.afuweather.mvvm.weather.adapter.WeatherAdapter
+import com.anthonyh.afuweather.mvvm.weather.network.entity.CaiYunWeather
 import com.anthonyh.afuweather.util.appDisplaySize
 
 /**
@@ -27,6 +30,12 @@ class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout
 
     private var recyclerView: RecyclerView? = null
     private var handleView: HandleView? = null
+    private var weatherAdapter: WeatherAdapter = WeatherAdapter()
+
+
+    fun refresh(caiYunWeather: CaiYunWeather) {
+        weatherAdapter.refresh(caiYunWeather)
+    }
 
 
     override fun onFinishInflate() {
@@ -48,7 +57,9 @@ class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
                 addView(recyclerView, layoutParamsRecyclerView)
-                recyclerView?.setBackgroundColor(Color.parseColor("#ee006666"))
+                recyclerView?.setBackgroundColor(Color.parseColor("#000066"))
+                recyclerView?.layoutManager = LinearLayoutManager(context)
+                recyclerView?.adapter = weatherAdapter
             }
             viewTreeObserver.removeOnGlobalLayoutListener { this }
         }

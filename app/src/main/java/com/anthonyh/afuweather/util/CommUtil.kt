@@ -3,11 +3,15 @@ package com.anthonyh.afuweather.util
 import android.content.Context
 import android.graphics.Point
 import android.os.Build
+import android.util.Log
 import android.util.TypedValue
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.core.content.getSystemService
+import java.lang.Long
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
 @author Anthony.H
@@ -119,3 +123,32 @@ const val SixFormatString = "#.000000"
 
 
 fun Double.format(formatString: String) = DecimalFormat(formatString).format(this).toDouble()
+
+fun timeStamp2Date(seconds: String?, format: String?): String? {
+    var format = format
+    if (seconds == null || seconds.isEmpty() || seconds == "null") {
+        return ""
+    }
+    if (format == null || format.isEmpty()) {
+        format = "yyyy-MM-dd HH:mm:ss"
+    }
+    val sdf = SimpleDateFormat(format)
+    return sdf.format(Date(Long.valueOf(seconds + "000")))
+}
+
+fun timeForMatShort(oldDate: String): String {
+    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+    val secFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.CHINA)
+
+    val lastFormat = SimpleDateFormat("yyyy-MM-dd")
+
+    return lastFormat.format(secFormat.parse(format.parse(oldDate).toString()))
+}
+
+fun dealDateFormat(oldDateStr: String?): String? {
+    val df1 = SimpleDateFormat("yyyy-MM-dd'T'hh:mmZ")
+    val date = df1.parse(oldDateStr)
+    val df2 = SimpleDateFormat("MM月dd日")
+    df2.timeZone = TimeZone.getTimeZone("GMT")
+    return df2.format(date)
+}

@@ -22,9 +22,9 @@ data class CaiYunWeather(
 
 data class Result(
 
-    val realTime: RealTime?,
+    @SerializedName("realtime") val realTime: RealTime?,
     val daily: Daily?,
-    val forecast_keypoint: String?
+    @SerializedName("forecast_keypoint") val forecastKeypoint: String?
 ) {
 
 
@@ -34,12 +34,12 @@ data class Result(
 //////////////
 data class RealTime(
     val status: String?, val temperature: String?, val humidity: Float,
-    val skycon: String?, val airQuality: AirQuality?,
+    val skycon: String?, @SerializedName("air_quality") val airQuality: AirQuality?,
 ) {
 
 }
 
-data class AirQuality(val pm25: String?, val description: Description?) {
+data class AirQuality(val pm25:Int?, val description: Description?) {
 
 }
 
@@ -105,12 +105,15 @@ data class Hourly(
 data class Precipitation(val datetime: String?, val value: Float?)
 
 ////////////
-data class Daily(val status: String?, val skycon: Array<Skycon>?, val temperature: Temperature?) {
+data class Daily(
+    val status: String?,
+    val skycon: Array<Skycon>?,
+    val temperature: Array<Temperature>?
+) {
 
 }
 
 data class Skycon(val date: String?, val value: String?)
-
 
 
 data class Temperature(val date: String?, val max: Float?, val min: Float?)
