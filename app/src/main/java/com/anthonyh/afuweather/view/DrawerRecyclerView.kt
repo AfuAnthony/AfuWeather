@@ -2,20 +2,21 @@ package com.anthonyh.afuweather.view
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anthonyh.afuweather.R
 import com.anthonyh.afuweather.mvvm.weather.adapter.WeatherAdapter
 import com.anthonyh.afuweather.mvvm.weather.network.entity.CaiYunWeather
-import com.anthonyh.afuweather.util.appDisplaySize
 
 /**
 @author Anthony.H
@@ -57,9 +58,16 @@ class DrawerRecyclerView(context: Context?, attrs: AttributeSet?) : LinearLayout
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
                 addView(recyclerView, layoutParamsRecyclerView)
-                recyclerView?.setBackgroundColor(Color.parseColor("#000066"))
+                recyclerView?.setBackgroundColor(resources.getColor(R.color.colorPrimaryTran))
                 recyclerView?.layoutManager = LinearLayoutManager(context)
                 recyclerView?.adapter = weatherAdapter
+                recyclerView?.addItemDecoration(
+                    DividerItemDecoration(
+                        context,
+                        LinearLayoutManager.VERTICAL
+                    ).apply {
+                        setDrawable(ContextCompat.getDrawable(context, R.drawable.divider)!!)
+                    })
             }
             viewTreeObserver.removeOnGlobalLayoutListener { this }
         }

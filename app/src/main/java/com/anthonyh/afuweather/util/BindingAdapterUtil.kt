@@ -61,7 +61,42 @@ fun AutoCompleteTextView.bindItemClick(onItemClickListener: AdapterView.OnItemCl
  */
 @BindingAdapter("bindWeatherSkyCon")
 fun TextView.bindWeatherSkyCon(skyCon: String?) {
-    text = "晴天"
+
+    skyCon?.let {
+        text = when (skyCon) {
+            "CLEAR_DAY", "CLEAR_NIGHT" -> {
+                "晴天"
+            }
+            "PARTLY_CLOUDY_DAY", "PARTLY_CLOUDY_NIGHT" -> {
+                "多云"
+            }
+            "CLOUDY" -> {
+
+                "阴"
+            }
+            "LIGHT_RAIN" -> {
+                "小雨"
+            }
+            "MODERATE_RAIN" -> {
+                "中雨"
+            }
+            "HEAVY_RAIN" -> {
+                "大雨"
+            }
+            "STORM_RAIN" -> {
+                "暴雨"
+            }
+            "FOG" -> {
+                "雾"
+            }
+            "LIGHT_SNOW" -> {
+                "小雪"
+            }
+            else -> {
+                "晴天"
+            }
+        }
+    }
 }
 
 @BindingAdapter("bindWeatherIcon")

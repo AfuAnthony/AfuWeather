@@ -71,6 +71,7 @@ class ChoosePlaceViewModel : ViewModel(), GeocodeSearch.OnGeocodeSearchListener 
 
         }
 
+
     fun parsePlaceCode(latLonPoint: LatLonPoint) {
         val query = RegeocodeQuery(
             latLonPoint,

@@ -146,9 +146,11 @@ fun timeForMatShort(oldDate: String): String {
 }
 
 fun dealDateFormat(oldDateStr: String?): String? {
+    Log.e("dealDateFormat", "dealDateFormat: $oldDateStr")
     val df1 = SimpleDateFormat("yyyy-MM-dd'T'hh:mmZ")
     val date = df1.parse(oldDateStr)
+    Log.e("dealDateFormat", "dealDateFormat->: ${date.toString()}")
     val df2 = SimpleDateFormat("MM月dd日")
-    df2.timeZone = TimeZone.getTimeZone("GMT")
+//    df2.timeZone = TimeZone.getTimeZone("GMT-16:00")
     return df2.format(date)
 }
