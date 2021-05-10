@@ -5,6 +5,7 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Transformations
 import com.anthonyh.afuweather.common.*
 
 
@@ -16,6 +17,7 @@ import com.anthonyh.afuweather.common.*
  * Guide](https://developer.android.com/arch).
  * @param <ResultType>
  * @param <RequestType>
+ * @param resultInterceptor 在网络数据转成数据库存储数据前，可能需要做一些处理
 </RequestType></ResultType> */
 abstract class NetworkBoundResource<ResultType, RequestType>
 @MainThread constructor(
@@ -34,13 +36,13 @@ abstract class NetworkBoundResource<ResultType, RequestType>
         @Suppress("LeakingThis")
         val dbSource = loadFromDb()
         result.addSource(dbSource) { data ->
-            Log.e(TAG, "先从数据库读取的数据:$data")
+            Log.d(TAG, "先从数据库读取的数据:$data")
             result.removeSource(dbSource)
             if (shouldFetch(data)) {
-                Log.e(TAG, "应该获取新的数据")
+                Log.d(TAG, "应该获取新的数据")
                 fetchFromNetwork(dbSource)
             } else {
-                Log.e(TAG, "直接使用数据库的数据")
+                Log.d(TAG, "直接使用数据库的数据")
                 result.addSource(dbSource) { newData ->
                     setValue(Resource.success(newData))
                 }
@@ -59,6 +61,9 @@ abstract class NetworkBoundResource<ResultType, RequestType>
         Log.e(TAG, "fetchFromNetwork-->")
         val apiResponse = createCall()
         // we re-attach dbSource as a new source, it will dispatch its latest value quickly
+        //这一句的意思应该是：即时马上要从网络更新数据，但是也把数据库的旧数据取出来
+
+        //这是为了提高用户体验，不至于在等待新数据的时候是一片白
         result.addSource(dbSource) { newData ->
             setValue(Resource.loading(newData))
         }

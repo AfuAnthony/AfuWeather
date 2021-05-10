@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.liveData
 import androidx.navigation.fragment.NavHostFragment
 import com.anthonyh.afuweather.R
 import com.anthonyh.afuweather.databinding.ActivityWeatherBindingImpl
@@ -14,6 +15,7 @@ import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import kotlinx.android.synthetic.main.activity_weather.*
+import kotlinx.coroutines.flow.flow
 
 
 /**
@@ -29,6 +31,8 @@ class WeatherActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
         XXPermissions.with(this)
             .permission(Permission.ACCESS_COARSE_LOCATION)

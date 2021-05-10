@@ -2,6 +2,7 @@ package com.anthonyh.afuweather.mvvm.weather.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.anthonyh.afuweather.application.WeatherApplication
 import com.anthonyh.afuweather.common.ApiResponse
 import com.anthonyh.afuweather.common.AppExecutors
@@ -22,22 +23,6 @@ import java.text.DecimalFormat
  */
 class QueryWeatherRepository(private val weatherDao: WeatherDao) {
 
-
-//    suspend fun queryWeather(
-//        longitude: Double,
-//        latitude: Double,
-//        locationName: String
-//    ): Flow<WeatherData> {
-//        refreshWeather(longitude, latitude, locationName)
-//
-//        val weatherService = RetrofitManager.createService(WeatherService::class.java)
-//        val weather = weatherService.queryWeather(location = "$longitude,$latitude")
-//        weather.locationName = locationName
-//
-//        return weather
-//    }
-
-
     fun queryWeather(
         longitude: Double,
         latitude: Double,
@@ -49,7 +34,7 @@ class QueryWeatherRepository(private val weatherDao: WeatherDao) {
             it
         }) {
         override fun saveCallResult(item: CaiYunWeather) {
-//            Log.e(TAG, "saveCallResult: $item")
+//            Log.d(TAG, "saveCallResult: $item")
             weatherDao.saveWeather(
                 WeatherData(
                     "${longitude},$latitude",
@@ -73,8 +58,9 @@ class QueryWeatherRepository(private val weatherDao: WeatherDao) {
 
 
         override fun loadFromDb(): LiveData<WeatherData> {
-            Log.e(TAG, "loadFromDb:$longitude,$latitude")
-            return weatherDao.queryWeatherByLocation("$longitude,$latitude")
+//            Log.d(TAG, "loadFromDb:$longitude,$latitude")
+            //用distinctUntilChanged包装一下，防止收到重复的值
+            return Transformations.distinctUntilChanged(weatherDao.queryWeatherByLocation("$longitude,$latitude"))
         }
 
         override fun createCall(): LiveData<ApiResponse<CaiYunWeather>> {
@@ -93,9 +79,9 @@ class QueryWeatherRepository(private val weatherDao: WeatherDao) {
         private var instance: QueryWeatherRepository? = null
         fun getInstance(): QueryWeatherRepository? {
             if (instance == null) {
-
                 synchronized(QueryWeatherRepository::class.java) {
                     if (instance == null) {
+
                         instance = QueryWeatherRepository(
                             AppDatabase.getInstance(WeatherApplication.context).weatherDao()
                         )

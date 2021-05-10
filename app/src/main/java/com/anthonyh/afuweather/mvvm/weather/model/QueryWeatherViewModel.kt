@@ -11,15 +11,8 @@ import com.anthonyh.afuweather.mvvm.weather.repository.Resource
 @date: 2021/4/30
 @desription:
  */
-class QueryWeatherViewModel(private val queryWeatherRepository: QueryWeatherRepository) : ViewModel() {
-
-
-//    private var _weatherLiveData = MutableLiveData<CaiYunWeather>()
-
-//    val weatherLiveData: LiveData<CaiYunWeather> = _weatherLiveData
-
-//    private var _exceptionLiveData = MutableLiveData<WeatherException>()
-//    val exceptionLiveData: LiveData<WeatherException> = _exceptionLiveData
+class QueryWeatherViewModel(private val queryWeatherRepository: QueryWeatherRepository) :
+    ViewModel() {
 
 
     private val _queryLiveData = MutableLiveData<QueryParam>()

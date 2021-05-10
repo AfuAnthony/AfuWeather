@@ -25,7 +25,7 @@ interface WeatherDao {
      * 也就是说，返回LiveData的查询，自动支持在后台线程查询
      */
     @Query("SELECT * FROM WeatherData WHERE locationTude=:locationTude")
-    fun queryWeatherByLocation(locationTude: String): LiveData<WeatherData>//Flow就像rxjava里面那个
+      fun queryWeatherByLocation(locationTude: String): LiveData<WeatherData>//Flow就像rxjava里面那个
 
 
 }
