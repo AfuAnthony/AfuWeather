@@ -3,6 +3,7 @@ package com.anthonyh.afuweather.mvvm.weather.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.liveData
 import com.anthonyh.afuweather.application.WeatherApplication
 import com.anthonyh.afuweather.common.ApiResponse
 import com.anthonyh.afuweather.common.AppExecutors
@@ -13,6 +14,8 @@ import com.anthonyh.afuweather.db.WeatherData
 import com.anthonyh.afuweather.mvvm.weather.network.WeatherService
 import com.anthonyh.afuweather.mvvm.weather.network.entity.CaiYunWeather
 import com.anthonyh.afuweather.util.GsonUtil
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import java.text.DecimalFormat
 
 /**
@@ -57,13 +60,13 @@ class QueryWeatherRepository(private val weatherDao: WeatherDao) {
         }
 
 
-        override fun loadFromDb(): LiveData<WeatherData> {
+        override fun loadFromDb(): Flow<WeatherData> {
 //            Log.d(TAG, "loadFromDb:$longitude,$latitude")
             //用distinctUntilChanged包装一下，防止收到重复的值
-            return Transformations.distinctUntilChanged(weatherDao.queryWeatherByLocation("$longitude,$latitude"))
+            return weatherDao.queryWeatherByLocation("$longitude,$latitude").distinctUntilChanged()
         }
 
-        override fun createCall(): LiveData<ApiResponse<CaiYunWeather>> {
+        override fun createCall(): Flow<ApiResponse<CaiYunWeather>> {
             val weatherService =
                 RetrofitManager.createService(
                     RetrofitManager.getRetrofit(RetrofitManager.CAIYUN)!!,

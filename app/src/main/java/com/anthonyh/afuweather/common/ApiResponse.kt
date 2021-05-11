@@ -25,7 +25,7 @@ import java.util.regex.Pattern
  * @param <T> the type of the response object
 </T> */
 @Suppress("unused") // T is used in extending classes
-sealed class ApiResponse<T> {
+sealed class ApiResponse<T> constructor() {
     companion object {
         fun <T> create(error: Throwable): ApiErrorResponse<T> {
             return ApiErrorResponse(error.message ?: "unknown error")

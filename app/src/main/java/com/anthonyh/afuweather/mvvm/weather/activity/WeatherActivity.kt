@@ -33,7 +33,6 @@ class WeatherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        //test flow_version branch
         XXPermissions.with(this)
             .permission(Permission.ACCESS_COARSE_LOCATION)
             .permission(Permission.ACCESS_FINE_LOCATION)

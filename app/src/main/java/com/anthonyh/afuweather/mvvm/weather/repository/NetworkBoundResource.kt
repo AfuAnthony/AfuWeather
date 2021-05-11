@@ -5,8 +5,10 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.asLiveData
 import com.anthonyh.afuweather.common.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 
 
 /**
@@ -34,7 +36,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     init {
         result.value = Resource.loading(null)
         @Suppress("LeakingThis")
-        val dbSource = loadFromDb()
+        val dbSource = loadFromDb().asLiveData()
         result.addSource(dbSource) { data ->
             Log.d(TAG, "先从数据库读取的数据:$data")
             result.removeSource(dbSource)
@@ -59,7 +61,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
 
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
         Log.e(TAG, "fetchFromNetwork-->")
-        val apiResponse = createCall()
+        val apiResponse = createCall().asLiveData()
         // we re-attach dbSource as a new source, it will dispatch its latest value quickly
         //这一句的意思应该是：即时马上要从网络更新数据，但是也把数据库的旧数据取出来
 
@@ -83,7 +85,9 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                             // we specially request a new live data,
                             // otherwise we will get immediately last cached value,
                             // which may not be updated with latest results received from network.
-                            result.addSource(loadFromDb()) { newData ->
+                            result.addSource(
+                                loadFromDb().asLiveData()
+                            ) { newData ->
                                 Log.e(TAG, "最后从数据库读取的数据(刚刚写入): $newData")
                                 setValue(Resource.success(newData))
                             }
@@ -93,7 +97,9 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                 is ApiEmptyResponse -> {
                     appExecutors.mainThread().execute {
                         // reload from disk whatever we had
-                        result.addSource(loadFromDb()) { newData ->
+                        result.addSource(
+                            loadFromDb().asLiveData()
+                        ) { newData ->
                             setValue(Resource.success(newData))
                         }
                     }
@@ -122,8 +128,8 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
     @MainThread
-    protected abstract fun loadFromDb(): LiveData<ResultType>
+    protected abstract fun loadFromDb(): Flow<ResultType>
 
     @MainThread
-    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
+    protected abstract fun createCall(): Flow<ApiResponse<RequestType>>
 }

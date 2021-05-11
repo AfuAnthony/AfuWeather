@@ -18,6 +18,10 @@ package com.anthonyh.afuweather.common
 
 
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.suspendCancellableCoroutine
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback
@@ -54,3 +58,5 @@ class LiveDataCallAdapter<R>(private val responseType: Type) :
         }
     }
 }
+
+

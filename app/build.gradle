@@ -112,5 +112,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:1.0.0-alpha10"
     //权限
     implementation 'com.hjq:xxpermissions:10.6'
+    //
+    implementation 'com.github.MohammadSianaki:Retrofit2-Flow-Call-Adapter:0.2.0'
 
 }

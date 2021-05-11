@@ -3,8 +3,8 @@ buildscript {
 
     //第三方库版本统一定义
     ext{
-        kotlin_version = "1.4.20"
-        kotlin_coroutines_version="1.4.2"
+        kotlin_version = "1.5.0"
+        kotlin_coroutines_version="1.5.0-RC"
         retrofit_version="2.9.0"
         converter_gson_version="2.6.0"
         lifecycle_version = "2.2.0"
