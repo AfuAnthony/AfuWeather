@@ -29,15 +29,14 @@ class QueryWeatherRepository(private val weatherDao: WeatherDao) {
     fun queryWeather(
         longitude: Double,
         latitude: Double,
-        locationName: String
-    ) = object : NetworkBoundResource<WeatherData, CaiYunWeather>(
-        AppExecutors(), {
-            Log.d(TAG, "resultInterceptor: --->")
-            it.locationName = locationName
-            it
+        locationName: String,
+    ) = object :
+        NetworkBoundResource<WeatherData, CaiYunWeather>(resultInterceptor = { result ->
+            result.locationName = locationName
+            result
         }) {
-        override fun saveCallResult(item: CaiYunWeather) {
-//            Log.d(TAG, "saveCallResult: $item")
+        override suspend fun saveCallResult(item: CaiYunWeather) {
+            Log.d(TAG, "saveCallResult: $item")
             weatherDao.saveWeather(
                 WeatherData(
                     "${longitude},$latitude",
@@ -47,6 +46,7 @@ class QueryWeatherRepository(private val weatherDao: WeatherDao) {
         }
 
         override fun shouldFetch(data: WeatherData?): Boolean {
+            Log.e(TAG, "shouldFetch: ${data.toString()}")
             //判断数据库给出的数据是否过期来抉择是否重新从网络获取数据
             if (data != null) {
                 val caiYunWeather =
@@ -60,13 +60,13 @@ class QueryWeatherRepository(private val weatherDao: WeatherDao) {
         }
 
 
-        override fun loadFromDb(): Flow<WeatherData> {
-//            Log.d(TAG, "loadFromDb:$longitude,$latitude")
+        override suspend fun loadFromDb(): WeatherData {
+            Log.d(TAG, "loadFromDb:$longitude,$latitude")
             //用distinctUntilChanged包装一下，防止收到重复的值
-            return weatherDao.queryWeatherByLocation("$longitude,$latitude").distinctUntilChanged()
+            return weatherDao.queryWeatherByLocation("$longitude,$latitude")
         }
 
-        override fun createCall(): Flow<ApiResponse<CaiYunWeather>> {
+        override suspend fun createCall(): CaiYunWeather {
             val weatherService =
                 RetrofitManager.createService(
                     RetrofitManager.getRetrofit(RetrofitManager.CAIYUN)!!,
@@ -74,7 +74,7 @@ class QueryWeatherRepository(private val weatherDao: WeatherDao) {
                 )
             return weatherService.queryWeather(location = "$longitude,$latitude")
         }
-    }.asLiveData()
+    }
 
 
     companion object {

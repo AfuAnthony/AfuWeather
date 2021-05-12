@@ -161,7 +161,7 @@ class WeatherFragment : Fragment(), LocationSource, AMapLocationListener {
                     Log.e(TAG, "observeData: 正在查询天气")
                 }
                 Status.ERROR -> {
-                    Log.e(TAG, "observeData: ${it.message}")
+                    Log.e(TAG, "observeData:geterror: ${it.message}")
                 }
                 Status.SUCCESS -> {
                     Log.e(

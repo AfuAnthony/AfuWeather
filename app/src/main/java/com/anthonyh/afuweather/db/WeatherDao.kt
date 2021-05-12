@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
 interface WeatherDao {
     //插入缓存
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveWeather(weatherCache: WeatherData)
+    suspend fun saveWeather(weatherCache: WeatherData)
     //根据经纬度查询缓存数据，
     /**
      * 注意：除非已对构建器调用 allowMainThreadQueries()，否则 Room 不支持在主线程上访问数据库，因为它可能会长时间锁定界面。
@@ -25,7 +25,7 @@ interface WeatherDao {
      * 也就是说，返回LiveData的查询，自动支持在后台线程查询
      */
     @Query("SELECT * FROM WeatherData WHERE locationTude=:locationTude")
-      fun queryWeatherByLocation(locationTude: String): Flow<WeatherData>//Flow就像rxjava里面那个
+    suspend fun queryWeatherByLocation(locationTude: String): WeatherData//Flow就像rxjava里面那个
 
 
 }

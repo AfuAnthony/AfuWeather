@@ -27,7 +27,7 @@ import java.util.regex.Pattern
 @Suppress("unused") // T is used in extending classes
 sealed class ApiResponse<T> constructor() {
     companion object {
-        fun <T> create(error: Throwable): ApiErrorResponse<T> {
+        fun <T> create(error: Throwable): ApiResponse<T> {
             return ApiErrorResponse(error.message ?: "unknown error")
         }
 
@@ -62,7 +62,7 @@ class ApiEmptyResponse<T> : ApiResponse<T>()
 
 data class ApiSuccessResponse<T>(
     val body: T,
-    val links: Map<String, String>
+    val links: Map<String, String>,
 ) : ApiResponse<T>() {
 
     constructor(body: T, linkHeader: String?) : this(

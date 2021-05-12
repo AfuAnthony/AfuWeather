@@ -23,7 +23,7 @@ class QueryWeatherViewModel(private val queryWeatherRepository: QueryWeatherRepo
                 it.longitude,
                 it.latitude,
                 it.locationName
-            )
+            ).asLiveData()
         }
 
 
